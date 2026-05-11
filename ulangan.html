@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Kalkulator Cream Glow</title>
+
+  <style>
+
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body{
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+
+      background:
+      linear-gradient(
+        135deg,
+        #f8f1e7,
+        #f3e4d3,
+        #ead7c3
+      );
+    }
+
+    /* EFEK CAHAYA BACKGROUND */
+    body::before{
+      content: "";
+      position: absolute;
+
+      width: 450px;
+      height: 450px;
+
+      background:
+      radial-gradient(
+        circle,
+        rgba(255,255,255,0.9),
+        transparent 70%
+      );
+
+      top: -120px;
+      left: -120px;
+
+      animation: glowMove 7s infinite alternate;
+    }
+
+    @keyframes glowMove{
+
+      from{
+        transform: translate(0,0);
+      }
+
+      to{
+        transform: translate(100px,80px);
+      }
+
+    }
+
+    /* KALKULATOR */
+    .calculator{
+
+      width: 290px;
+
+      padding-bottom: 15px;
+
+      background:
+      linear-gradient(
+        180deg,
+        rgba(255,255,255,0.55),
+        rgba(255,255,255,0.25)
+      );
+
+      backdrop-filter: blur(14px);
+
+      border-radius: 30px;
+
+      border: 1px solid rgba(255,255,255,0.5);
+
+      box-shadow:
+      0 10px 30px rgba(0,0,0,0.08),
+      0 0 20px rgba(255,255,255,0.6);
+
+      overflow: hidden;
+
+      position: relative;
+
+      z-index: 1;
+    }
+
+    /* DISPLAY */
+    .display{
+
+      height: 180px;
+
+      padding: 25px 22px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
+    }
+
+    .expression{
+
+      font-size: 46px;
+
+      color: #5f5045;
+
+      word-break: break-all;
+
+      font-weight: 500;
+    }
+
+    .result{
+
+      margin-top: 8px;
+
+      font-size: 26px;
+
+      color: #9f8e82;
+    }
+
+    /* BUTTON AREA */
+    .buttons{
+
+      padding: 18px;
+
+      display: grid;
+
+      grid-template-columns: repeat(4,1fr);
+
+      gap: 14px;
+
+      justify-items: center;
+    }
+
+    /* BUTTON */
+    button{
+
+      width: 55px;
+      height: 55px;
+
+      border: none;
+
+      border-radius: 50%;
+
+      font-size: 22px;
+
+      cursor: pointer;
+
+      color: #5f5045;
+
+      background:
+      linear-gradient(
+        145deg,
+        rgba(255,255,255,0.85),
+        rgba(255,255,255,0.45)
+      );
+
+      box-shadow:
+      0 4px 10px rgba(0,0,0,0.08),
+      inset 0 2px 5px rgba(255,255,255,0.8);
+
+      transition: 0.15s;
+    }
+
+    /* EFEK SAAT DITEKAN */
+    button:active{
+
+      transform: scale(0.92);
+
+      box-shadow:
+      0 0 12px rgba(255,255,255,1),
+      0 0 28px rgba(255,255,255,0.9),
+      0 0 45px rgba(255,255,255,0.8);
+
+      background:
+      linear-gradient(
+        145deg,
+        rgba(255,255,255,1),
+        rgba(255,255,255,0.75)
+      );
+    }
+
+    /* OPERATOR */
+    .operator{
+
+      background:
+      linear-gradient(
+        145deg,
+        #ead8c8,
+        #dcc4b1
+      );
+
+      font-weight: bold;
+    }
+
+    /* CLEAR */
+    .clear{
+
+      background:
+      linear-gradient(
+        145deg,
+        #f0d8d1,
+        #e6beb2
+      );
+    }
+
+    /* EQUAL */
+    .equal{
+
+      background:
+      linear-gradient(
+        145deg,
+        #cbb29d,
+        #b99a82
+      );
+
+      color: white;
+
+      font-size: 28px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="calculator">
+
+    <!-- DISPLAY -->
+    <div class="display">
+
+      <div class="expression" id="expression">0</div>
+
+      <div class="result" id="result">0</div>
+
+    </div>
+
+    <!-- BUTTON -->
+    <div class="buttons">
+
+      <button class="clear" onclick="clearDisplay()">AC</button>
+
+      <button onclick="appendValue('%')">%</button>
+
+      <button onclick="toggleSign()">±</button>
+
+      <button class="operator" onclick="appendValue('/')">÷</button>
+
+      <button onclick="appendValue('7')">7</button>
+
+      <button onclick="appendValue('8')">8</button>
+
+      <button onclick="appendValue('9')">9</button>
+
+      <button class="operator" onclick="appendValue('*')">×</button>
+
+      <button onclick="appendValue('4')">4</button>
+
+      <button onclick="appendValue('5')">5</button>
+
+      <button onclick="appendValue('6')">6</button>
+
+      <button class="operator" onclick="appendValue('-')">−</button>
+
+      <button onclick="appendValue('1')">1</button>
+
+      <button onclick="appendValue('2')">2</button>
+
+      <button onclick="appendValue('3')">3</button>
+
+      <button class="operator" onclick="appendValue('+')">+</button>
+
+      <button onclick="appendValue('00')">00</button>
+
+      <button onclick="appendValue('0')">0</button>
+
+      <button onclick="appendValue('.')">.</button>
+
+      <button class="equal" onclick="calculate()">=</button>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    let expression = document.getElementById("expression");
+
+    let result = document.getElementById("result");
+
+    let currentInput = "";
+
+    // TAMBAH ANGKA / OPERATOR
+    function appendValue(value){
+
+      if(currentInput === "0" && value !== "."){
+
+        currentInput = value;
+
+      }else{
+
+        currentInput += value;
+      }
+
+      updateDisplay();
+    }
+
+    // UPDATE HASIL OTOMATIS
+    function updateDisplay(){
+
+      expression.innerText = currentInput || "0";
+
+      try{
+
+        let evalInput = currentInput.replace(/%/g, "/100");
+
+        let liveResult = eval(evalInput);
+
+        if(liveResult !== undefined){
+
+          result.innerText = liveResult;
+        }
+
+      }catch{
+
+        result.innerText = "";
+      }
+    }
+
+    // CLEAR
+    function clearDisplay(){
+
+      currentInput = "";
+
+      expression.innerText = "0";
+
+      result.innerText = "0";
+    }
+
+    // PLUS / MINUS
+    function toggleSign(){
+
+      if(currentInput){
+
+        if(currentInput.startsWith("-")){
+
+          currentInput = currentInput.substring(1);
+
+        }else{
+
+          currentInput = "-" + currentInput;
+        }
+
+        updateDisplay();
+      }
+    }
+
+    // HITUNG
+    function calculate(){
+
+      try{
+
+        let evalInput = currentInput.replace(/%/g, "/100");
+
+        currentInput = eval(evalInput).toString();
+
+        expression.innerText = currentInput;
+
+        result.innerText = currentInput;
+
+      }catch{
+
+        expression.innerText = "Error";
+
+        result.innerText = "";
+      }
+    }
+
+  </script>
+
+</body>
+</html>
